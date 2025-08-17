@@ -1,1 +1,1 @@
-rootProject.name = "mcpserver"
+rootProject.name = "spring-ai-mcp-demo"
