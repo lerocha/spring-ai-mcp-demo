@@ -9,8 +9,10 @@ import org.springframework.context.annotation.Bean
 @SpringBootApplication
 class McpServerApplication {
     @Bean
-    fun weatherTools(weatherService: WeatherService): ToolCallbackProvider {
-        return MethodToolCallbackProvider.builder().toolObjects(weatherService).build()
+    fun tools(mortgageService: MortgageService): ToolCallbackProvider {
+        return MethodToolCallbackProvider.builder()
+            .toolObjects(mortgageService)
+            .build()
     }
 }
 

@@ -1,6 +1,6 @@
 # Spring AI MCP Demo
 
-This is a Spring Boot Kotlin application that implements an MCP (Model Context Protocol) server demo using Spring AI. The project provides weather information tools and resources that can be accessed by Claude Desktop and other MCP clients.
+This is a Spring Boot Kotlin application that implements an MCP (Model Context Protocol) server demo using Spring AI. The project provides mortgage tools and resources that can be accessed by Claude Desktop and other MCP clients.
 
 - [MCP Server Boot Starter](https://docs.spring.io/spring-ai/reference/api/mcp/mcp-server-boot-starter-docs.html)
 - [Build an MCP Server](https://modelcontextprotocol.io/quickstart/server)
