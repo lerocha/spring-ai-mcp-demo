@@ -15,5 +15,5 @@ class McpServerApplication {
 }
 
 fun main(args: Array<String>) {
-	runApplication<McpServerApplication>(*args)
+    runApplication<McpServerApplication>(*args)
 }
