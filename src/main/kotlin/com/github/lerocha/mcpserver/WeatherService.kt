@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service
 class WeatherService {
 
     @Tool(description = "Get the weather for a city")
-    public fun getWeather(cityName: String): String {
+    fun getWeather(cityName: String): String {
         // TODO: implementation
         return "Sunny"
     }
