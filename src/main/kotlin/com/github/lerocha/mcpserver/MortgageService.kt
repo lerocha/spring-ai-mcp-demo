@@ -1,11 +1,15 @@
 package com.github.lerocha.mcpserver
 
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.ai.tool.annotation.Tool
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 
 @Service
 class MortgageService {
+    private val logger: Logger = LoggerFactory.getLogger(javaClass)
+
     @Tool(description = "Calculate the mortgage payment for a given loan amount, interest rate and number of months")
     fun calculateMortgagePayment(
         loanAmount: BigDecimal,
@@ -25,7 +29,10 @@ class MortgageService {
         val numerator = monthlyRate.multiply(onePlusRate.pow(months))
         val denominator = onePlusRate.pow(months).subtract(BigDecimal.ONE)
 
-        return loanAmount.multiply(numerator.divide(denominator, 10, java.math.RoundingMode.HALF_UP))
-            .setScale(2, java.math.RoundingMode.HALF_UP)
+        val payment =
+            loanAmount.multiply(numerator.divide(denominator, 10, java.math.RoundingMode.HALF_UP))
+                .setScale(2, java.math.RoundingMode.HALF_UP)
+        logger.info("Calculated payment=$payment for loanAmount=$loanAmount, interestRate=$interestRate, months=$months")
+        return payment
     }
 }

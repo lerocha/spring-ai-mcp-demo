@@ -22,11 +22,6 @@ spring:
     # disable banner to allow the STDIO transport to work
     banner-mode: off
 
-# disable console logging to allow the STDIO transport to work
-logging:
-  level:
-    root: OFF
-
 management:
   endpoints:
     web:

@@ -43,8 +43,14 @@ Add the following to the configuration file and restart Claude Desktop. Make sur
 }
 ```
 
-### Checking the Claude Desktop Logs
+### Checking the Logs
 
 ```bash
+# Claude Desktop Logs
 tail -f ~/Library/Logs/Claude/mcp-server-spring-ai-mcp-server-demo.log
+```
+
+```bash
+# MCP Server Logs
+tail -f /tmp/logs/spring-ai-mcp-demo.log
 ```
