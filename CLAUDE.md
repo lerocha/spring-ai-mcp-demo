@@ -4,12 +4,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Spring Boot Kotlin application that implements an MCP (Model Context Protocol) server demo using Spring AI. The project provides weather information tools and resources that can be accessed by Claude Desktop and other MCP clients.
+This is a Spring Boot Kotlin application that implements an MCP (Model Context Protocol) server demo using Spring AI. The project provides mortgage calculation tools that can be accessed by Claude Desktop and other MCP clients.
 
 ## Key Architecture Components
 
 - **MCP Server**: Built using Spring AI's `spring-ai-starter-mcp-server-webmvc` starter
-- **Tool Provider**: Weather-related tools are exposed via Spring AI's `@Tool` annotation
+- **Tool Provider**: Mortgage calculation tools are exposed via Spring AI's `@Tool` annotation
 - **Transport**: Configured for STDIO transport (standard input/output) for Claude Desktop integration
 - **Configuration**: Uses Spring Boot's configuration system with MCP-specific settings in `application.yml`
 
@@ -26,8 +26,14 @@ This is a Spring Boot Kotlin application that implements an MCP (Model Context P
 # Run tests
 ./gradlew test
 
-# Check all verification tasks
+# Run specific test class
+./gradlew test --tests "MortgageServiceTest"
+
+# Check all verification tasks (includes tests, ktlint)
 ./gradlew check
+
+# Run ktlint formatting
+./gradlew ktlintFormat
 ```
 
 ### MCP Server Integration
@@ -42,22 +48,29 @@ java -jar build/libs/spring-ai-mcp-demo-0.0.1-SNAPSHOT.jar
 
 ### Core Classes
 - `McpServerApplication.kt`: Main Spring Boot application with tool callback provider configuration
-- `WeatherService.kt`: Service class containing `@Tool` annotated methods for weather operations
+- `MortgageService.kt`: Service class containing `@Tool` annotated methods for mortgage calculations
 - `application.yml`: MCP server configuration including capabilities, transport settings, and logging
 
 ### Tool Implementation Pattern
 Tools are implemented as Spring service methods annotated with `@Tool`:
 ```kotlin
-@Tool(description = "Get the weather for a city")
-fun getWeather(cityName: String): String
+@Tool(description = "Calculate the mortgage payment for a given loan amount, interest rate and number of months")
+fun calculateMortgagePayment(loanAmount: BigDecimal, interestRate: BigDecimal, months: Int): BigDecimal
 ```
 
-These are automatically registered via `MethodToolCallbackProvider` in the main application class.
+These are automatically registered via `MethodToolCallbackProvider` in the main application class through constructor injection.
 
 ### Configuration Notes
 - Banner mode is disabled (`banner-mode: off`) for STDIO transport compatibility
 - Console logging is disabled (`root: OFF`) to prevent interference with MCP communication
 - Management endpoints are exposed for monitoring: health, info, mappings, beans, env
+- MCP server capabilities include tool, resource, prompt, and completion support
+
+### Testing Strategy
+- Unit tests use JUnit 5 with Kotlin test extensions
+- Comprehensive test coverage for mortgage calculations including edge cases
+- Tests validate input validation, mathematical accuracy, and error handling
+- Test file: `MortgageServiceTest.kt` contains scenarios for various loan parameters
 
 ## Development Environment
 - **Language**: Kotlin 1.9.25
@@ -65,3 +78,4 @@ These are automatically registered via `MethodToolCallbackProvider` in the main 
 - **Spring Boot**: 3.5.4
 - **Spring AI**: 1.0.1
 - **Build Tool**: Gradle with Kotlin DSL
+- **Code Quality**: ktlint plugin (version 1.0.1) for formatting and linting
